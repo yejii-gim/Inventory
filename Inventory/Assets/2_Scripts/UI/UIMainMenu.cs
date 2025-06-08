@@ -4,10 +4,11 @@ using UnityEngine.UI;
 
 public class UIMainMenu : MonoBehaviour
 {
+    [Header("플레이어 정보")]
     [SerializeField] private TextMeshProUGUI _name;
     [SerializeField] private TextMeshProUGUI _level;
     [SerializeField] private TextMeshProUGUI _gold;
-
+    [Header("버튼")]
     [SerializeField] Button _statusButton;
     [SerializeField] Button _inventoryButton;
 
@@ -16,8 +17,8 @@ public class UIMainMenu : MonoBehaviour
         _statusButton.onClick.AddListener(OpenStatus);
         _inventoryButton.onClick.AddListener(OpenInventory);
     }
-
-    public void SetMainMenu(Character player)
+    // 캐릭터 정보 UI 셋팅
+    public void UpdateMainMenuUI(Character player)
     {
         _name.text = $"{player.Name}";
         _level.text = $"{player.Level}";

@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIStatus : MonoBehaviour
 {
     [SerializeField] private Button _backButton;
+    [Header("스탯 텍스트")]
     [SerializeField] private TextMeshProUGUI _attackPowerText;
     [SerializeField] private TextMeshProUGUI _defenseText;
     [SerializeField] private TextMeshProUGUI _healthText;
@@ -17,7 +16,8 @@ public class UIStatus : MonoBehaviour
         _backButton.onClick.AddListener(BackButton);
     }
 
-    public void SetStatus(Character player)
+    // 상태창 최신화
+    public void UpdateStatusUI(Character player)
     {
         _attackPowerText.text = $"{player.TotalAttack}";
         _defenseText.text = $"{player.TotalDefense}";
