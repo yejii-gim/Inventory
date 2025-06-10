@@ -5,16 +5,22 @@ using UnityEngine;
 
 public class GachaSystem 
 {
-    private List<Item> _pool;
+    private List<Item> _pool;  // 가챠 아이템 풀
 
     public GachaSystem()
     {
+        // 생성자에서 아이템 풀 초기화
         _pool = CreateItemPool();
     }
 
+    // 아이템 뽑기 함수
     public Item Roll()
     {
+        // 골드가 부족하면 null 반환
         if (GameManager.Instance.Player().Gold < 100) return null;
+
+
+        // 확률 기반으로 희귀도 결정
         float rand = Random.value;
         RarityType rarity = rand switch
         {
@@ -28,6 +34,7 @@ public class GachaSystem
         var selected = _pool.Where(i => i.Rarity == rarity && !owned.Contains(i)).ToList();
         if (selected.Count == 0) return null;
 
+        // 슬롯 UI 및 골드 정보 갱신
         UIManager.Instance.UIInventory().UpdateCurrentSlotCount();
         GameManager.Instance.Player().UseGold(100);
         UIManager.Instance.UIMainMene().UpdateGoldText(GameManager.Instance.Player());
