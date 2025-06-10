@@ -23,8 +23,9 @@ public class GachaSystem
             < 0.95f => RarityType.Epic,
             _ => RarityType.Legendary
         };
-
-        var selected = _pool.Where(i => i.Rarity == rarity).ToList();
+        // 이미 가지고 있는 아이템 제외
+        var owned = GameManager.Instance.Player().Inventory;
+        var selected = _pool.Where(i => i.Rarity == rarity && !owned.Contains(i)).ToList();
         if (selected.Count == 0) return null;
 
         UIManager.Instance.UIInventory().UpdateCurrentSlotCount();
