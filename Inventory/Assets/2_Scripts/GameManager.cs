@@ -7,20 +7,23 @@ public class GameManager : Singleton<GameManager>
     private Character _player;
     public Character Player() => _player;
     private List<Item> _items = new List<Item>();
+
+    // 게임 시작 시 초기 데이터 생성 및 설정
     private void Start()
     {
         CharacterData characterData = CreateCharacterData();
         SetData(characterData);
         UpdatePlayerStats();
     }
-
+    // 캐릭터 데이터를 바탕으로 플레이어 객체 설정
     public void SetData(CharacterData data)
     {
         _player = new Character(data);
     }
-
+    // 초기 캐릭터 데이터를 생성
     private CharacterData CreateCharacterData()
     {
+        // 장비 및 포션 아이템을 생성하여 리스트에 저장
         _items = new List<Item>
         {
             CreateItem(ItemType.Equipment, "Axe", "도끼", "강력한 베기 무기", 15, 2, 0, 1),
