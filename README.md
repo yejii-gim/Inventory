@@ -143,5 +143,48 @@ private void ClickSlot()
     UIManager.Instance.UIStatus().UpdateStatusUI(player);
 }
 ```
+</details>
 
 ---
+
+## 💰 아이템 뽑기 기능
+ - 아이템 뽑기는 캐릭터가 골드를 소모해 무작위 아이템을 뽑는 가챠 시스템 사용용
+<details>
+<summary>🔽 캐릭터 데이터 코드 및 GIF 보기</summary>
+<div align="center">
+
+<img src="https://github.com/user-attachments/assets/6f860190-2d74-4fc4-87b4-1099ad700046" alt="캐릭터 데이터 " width="600"/>
+</div>
+
+  ### 1️⃣ 가챠 핵심 로직
+
+  ```csharp
+public Item Roll()
+{
+    // 골드가 부족하면 null 반환
+    if (GameManager.Instance.Player().Gold < 100) return null;
+
+
+    // 확률 기반으로 희귀도 결정
+    float rand = Random.value;
+    RarityType rarity = rand switch
+    {
+        < 0.5f => RarityType.Common,
+        < 0.8f => RarityType.Rare,
+        < 0.95f => RarityType.Epic,
+        _ => RarityType.Legendary
+    };
+    // 이미 가지고 있는 아이템 제외
+    var owned = GameManager.Instance.Player().Inventory;
+    var selected = _pool.Where(i => i.Rarity == rarity && !owned.Contains(i)).ToList();
+    if (selected.Count == 0) return null;
+
+    // 슬롯 UI 및 골드 정보 갱신
+    UIManager.Instance.UIInventory().UpdateCurrentSlotCount();
+    GameManager.Instance.Player().UseGold(100);
+    UIManager.Instance.UIMainMene().UpdateGoldText(GameManager.Instance.Player());
+    return selected[Random.Range(0, selected.Count)];
+}
+```
+</details>
+
