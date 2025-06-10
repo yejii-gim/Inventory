@@ -25,14 +25,19 @@ public class UISlot : MonoBehaviour
     // 슬롯 UI 최산화(아이템 이미지와 장착 상태 반영)
     public void RefreshUI()
     {
-        // 아이템 아이콘을 설정하고 아이템이 없으면 이미지 비활성화
-        _itemImage.sprite = _item?.Icon;
-        _itemImage.enabled = (_item != null);
+        if (_item != null && _item.Icon != null)
+        {
+            _itemImage.sprite = _item.Icon;
+            _itemImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            _itemImage.sprite = null;
+            _itemImage.gameObject.SetActive(false);
+        }
 
-        // 장착 여부에 따라 표시 이미지 토글
-        _equippedImage.gameObject.SetActive(_isEquipped);  // 장착 여부 반영
+        _equippedImage.gameObject.SetActive(_isEquipped);
     }
-
     // 슬롯 클릭시 아이템 장착/해제 처리
     private void ClickSlot()
     {

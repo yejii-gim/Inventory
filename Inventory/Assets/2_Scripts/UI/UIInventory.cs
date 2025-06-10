@@ -19,7 +19,7 @@ public class UIInventory : MonoBehaviour
     private List<UISlot> _inventory = new();
     private void Start()
     {
-        _maxSlotText.text = $"{_slotCount}";
+        _maxSlotText.text = $"{20}";
         InitInventorySlotUI();
         _backButton.onClick.AddListener(BackButton);
     }
@@ -42,7 +42,6 @@ public class UIInventory : MonoBehaviour
             UISlot slot = obj.GetComponent<UISlot>();
             _inventory.Add(slot);
         }
-
         RefreshAllSlots();
     }
 
@@ -65,8 +64,6 @@ public class UIInventory : MonoBehaviour
             //슬롯 UI는 보이게
             _inventory[i].gameObject.SetActive(true);
         }
-
-        UpdateCurrentSlotCount();
     }
 
     // 아이템 사용 후 UI반영

@@ -100,4 +100,9 @@ public class Character
             Inventory.Remove(item); // 사용 후 인벤토리에서 제거
         }
     }
+
+    public void UseGold(int num)
+    {
+        Gold -= num;
+    }
 }

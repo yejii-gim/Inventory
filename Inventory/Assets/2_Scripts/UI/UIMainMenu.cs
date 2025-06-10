@@ -25,6 +25,11 @@ public class UIMainMenu : MonoBehaviour
         _gold.text = $"{player.Gold}";
     }
 
+    public void UpdateGoldText(Character player)
+    {
+        _gold.text = $"{player.Gold}";
+    }
+
     public void OpenMainMenu()
     {
         UIManager.Instance.UIMainMene().gameObject.SetActive(true);

@@ -1,4 +1,12 @@
 ﻿using UnityEngine;
+public enum RarityType
+{
+    Common,
+    Rare,
+    Epic,
+    Legendary
+}
+
 public enum ItemType
 {
     Equipment,
@@ -8,6 +16,7 @@ public enum ItemType
 [System.Serializable]
 public class Item
 {
+    public RarityType Rarity { get; private set; }// 아이템 희귀도
     public ItemType Type { get; private set; } // 아이템 타입
     public Sprite Icon { get; private set; } // 아이템 아이콘
     public string Name { get; private set; } // 아이템 이름
@@ -18,8 +27,9 @@ public class Item
     public int EffectCritical { get; private set; } // 치망타 확률
 
 
-    public Item(ItemType type, Sprite icon, string name, string description, int effectAttack, int effectDefense, int effectHealth, int effectCritical)
+    public Item(RarityType rarity, ItemType type, Sprite icon, string name, string description, int effectAttack, int effectDefense, int effectHealth, int effectCritical)
     {
+        Rarity = rarity;
         Type = type;
         Icon = icon;
         Name = name;
